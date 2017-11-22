@@ -50,7 +50,7 @@ Asf::Asf() {
     else if (x_desiredLinesRead == 1 && x_desiredLColumnsRead > 1)
         x_desired_lines = x_desiredLColumnsRead;
     else {
-        cout << "Not expecting format for DesiredSolution.txt>" << endl;
+        cout << "Not expecting format for DesiredSolution.dat>" << endl;
         return;
     }
 
@@ -72,7 +72,11 @@ Asf::Asf() {
     z_nadir = new double[z_lines];
     sum_diff = new double[x_lines];
     ASF = new double[x_lines];
-    weighted_x = new double[x_lines];
+    max_weighted_x = new double[x_lines];
+    weighted_x = new double*[x_lines];
+    for (int i = 0; i < x_lines; i++){
+        weighted_x[i] = new double[x_columns];
+    }
 
     ///////// rest initialization end ///////////
 
@@ -86,6 +90,7 @@ Asf::~Asf() {
     delete[] sum_diff;
     delete[] ASF;
     delete[] weighted_x;
+    delete[] max_weighted_x;
 
     for (int i = 0; i < x_lines; i++) {
         delete[] x[i];
@@ -113,21 +118,29 @@ void Asf::doCrazyMath() {
 
     for (i = 0; i < x_lines; i++) {
         for (j = 0; j < x_columns; j++) {
-            weighted_x[i] = w[j] * (x[i][j] - x_desired[j]);
-            sum_diff[i] = sum_diff[i] + weighted_x[i];
-        }
-    }
-
-    max_weighted_x = weighted_x[0];
-
-    for (i = 0; i < x_lines; i++) {
-        if (weighted_x[i] > max_weighted_x) {
-            max_weighted_x = weighted_x[i];
+            weighted_x[i][j] = w[j] * (x[i][j] - x_desired[j]);
+            sum_diff[i] = sum_diff[i] + weighted_x[i][j];
         }
     }
 
     for (i = 0; i < x_lines; i++) {
-        ASF[i] = max_weighted_x + ro * sum_diff[i];
+        max_weighted_x[i] = weighted_x[i][0];
+    }
+
+    for (i = 0; i < x_lines; i++) {
+        for (j = 0; j < x_columns; j++) {
+            if (weighted_x[i][j] > max_weighted_x[i]) {
+                max_weighted_x[i] = weighted_x[i][j];
+            }
+        }
+    }
+
+    for (i = 0; i < x_lines; i++) {
+        ASF[i] = max_weighted_x[i] + ro * sum_diff[i];
+    }
+
+    for (i = 0; i < x_lines; i++) {
+        cout << ASF[i] << endl;
     }
 
     ofstream evaluation(evaluation_fileName.c_str());

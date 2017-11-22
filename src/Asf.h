@@ -31,12 +31,11 @@ public:
 
     double *x_desired;
     int x_desired_lines;
-    double *weighted_x;
+    double **weighted_x;
     double *sum_diff;
+    double *max_weighted_x;
 
     double *ASF;
-
-    double max_weighted_x;
 
     Asf();
 

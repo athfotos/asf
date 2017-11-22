@@ -139,10 +139,6 @@ void Asf::doCrazyMath() {
         ASF[i] = max_weighted_x[i] + ro * sum_diff[i];
     }
 
-    for (i = 0; i < x_lines; i++) {
-        cout << ASF[i] << endl;
-    }
-
     ofstream evaluation(evaluation_fileName.c_str());
     for (i = 0; i < x_lines; i++) {
         evaluation << fixed << setprecision(5) << ASF[i] << endl;

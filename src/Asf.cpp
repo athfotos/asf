@@ -66,6 +66,7 @@ Asf::Asf() {
     ///////// file reading END ///////////
 
     ///////// rest initialization ///////////
+
     w = new double[z_lines];
     z_ideal = new double[z_lines];
     z_nadir = new double[z_lines];
@@ -97,14 +98,12 @@ void Asf::doCrazyMath() {
     int i, j;
     double ro = 0.001;
 
-    i = -1;
-    for (j = 0; j < z_columns; j++) {
-        z_ideal[j] = z[i + 1][0];
-        z_nadir[j] = z[i + 1][1];
-        i++;
+    for (i = 0; i < z_lines; i++) {
+        z_ideal[i] = z[i][0];
+        z_nadir[i] = z[i][1];
     }
 
-    for (i = 0; i < z_columns; i++) {
+    for (i = 0; i < z_lines; i++) {
         w[i] = 1.0 / (z_nadir[i] - z_ideal[i]);
     }
 

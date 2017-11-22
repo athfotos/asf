@@ -1,8 +1,8 @@
 /*
- * MyCalculator.cpp
+ * Asf.cpp
  *
- *  Created on: Nov 14, 2017
- *      Author: user
+ * Created on: Nov 18, 2017
+ * Author: Athanasios Fotos
  */
 
 #include <iostream>

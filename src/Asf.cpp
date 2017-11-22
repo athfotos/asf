@@ -8,7 +8,6 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <algorithm>
 
 #include "Asf.h"
 #include "MyFileReader.h"
@@ -17,9 +16,10 @@
 
 using namespace std;
 
-const string Asf::input_fileName = "myfile.dat";
-const string Asf::weights_fileName = "objvector.dat";
-const string Asf::desired_fileName = "DesiredSolution.dat";
+const string Asf::input_fileName = "../resources/myfile.dat";
+const string Asf::weights_fileName = "../resources/objvector.dat";
+const string Asf::desired_fileName = "../resources/DesiredSolution.dat";
+const string Asf::evaluation_fileName = "../resources/ASFevaluation.dat";
 
 Asf::Asf() {
 
@@ -131,7 +131,7 @@ void Asf::doCrazyMath() {
         ASF[i] = max_weighted_x + ro * sum_diff[i];
     }
 
-    ofstream evaluation("ASFevaluation.dat");
+    ofstream evaluation(evaluation_fileName.c_str());
     for (i = 0; i < x_lines; i++) {
         evaluation << fixed << setprecision(5) << ASF[i] << endl;
     }

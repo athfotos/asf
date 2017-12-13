@@ -22,6 +22,7 @@ public:
     ~MyFileReader();
 
     double **read();
+    double **newRead();
 
 };
 

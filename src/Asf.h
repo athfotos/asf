@@ -13,6 +13,7 @@ class Asf {
     static const std::string weights_fileName;
     static const std::string desired_fileName;
     static const std::string evaluation_fileName;
+    static const std::string log;
 public:
     std::string fileName;
 

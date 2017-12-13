@@ -20,11 +20,15 @@ const string Asf::input_fileName = "../resources/myfile.dat";
 const string Asf::weights_fileName = "../resources/objvector.dat";
 const string Asf::desired_fileName = "../resources/DesiredSolution.dat";
 const string Asf::evaluation_fileName = "../resources/ASFevaluation.dat";
+const string Asf::log = "../resources/out_L1_G353.log";
 
 Asf::Asf() {
 
     ///////// file reading ///////////
     MyFileReader *fileReader;
+
+    fileReader = new MyFileReader(log);
+    x = fileReader->newRead();
 
     fileReader = new MyFileReader(input_fileName);
     x = fileReader->read();
